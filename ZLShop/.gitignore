@@ -1,0 +1,11 @@
+.vscode/
+[Oo]bj/
+[Bb]in/
+# Sensitive configuration files
+
+appsettings.json
+appsettings.*.json
+appsettings.Development.json
+
+*.md
+*.http
