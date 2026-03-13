@@ -10,3 +10,4 @@ appsettings.Development.json
 Config.md
 Task.md
 *.http
+.log
