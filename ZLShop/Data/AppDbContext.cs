@@ -26,5 +26,6 @@ public class AppDbContext : DbContext
         base.OnModelCreating(modelBuilder);
         RoleData.Seed(modelBuilder);
         modelBuilder.Entity<Category>().HasQueryFilter(c => !c.IsDeleted);
+        modelBuilder.Entity<Product>().HasQueryFilter(p => !p.IsDeleted);
     }
 }

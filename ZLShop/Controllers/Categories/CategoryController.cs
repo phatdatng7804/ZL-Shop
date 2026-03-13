@@ -19,19 +19,19 @@ public class CategoryController : ControllerBase
         var result = await _categoryService.GetAllAsync();
         return Ok(result);
     }
-    [HttpPost("create")]
+    [HttpPost]
     public async Task<IActionResult> CreateAsync(CreateCategoryDto request)
     {
         var result = await _categoryService.CreateAsync(request);
         return Ok(result);
     }
-    [HttpPut("update/{id}")]
+    [HttpPut("{id}")]
     public async Task<IActionResult> UpdateAsync(int id, UpdateCategoryDto request)
     {
         var result = await _categoryService.UpdateAsync(id, request);
         return Ok(result);
     }
-    [HttpDelete("delete/{id}")]
+    [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteAsync(int id)
     {
         var result = await _categoryService.DeleteAsync(id);
@@ -45,7 +45,7 @@ public class CategoryController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPut("restore/{id}")]
+    [HttpPut("{id}/restore")]
     public async Task<IActionResult> RestoreAsync(int id)
     {
         var result = await _categoryService.RestoreAsync(id);

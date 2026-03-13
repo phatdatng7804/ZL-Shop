@@ -7,5 +7,6 @@ appsettings.json
 appsettings.*.json
 appsettings.Development.json
 
-*.md
+Config.md
+Task.md
 *.http

@@ -41,7 +41,8 @@ public class CategoryService : ICategoryService
         return new CategoryResponseDto
         {
             Id = category.Id,
-            Name = category.Name
+            Name = category.Name,
+
         };
     }
     public async Task<CategoryResponseDto> UpdateAsync(int id, UpdateCategoryDto request)
