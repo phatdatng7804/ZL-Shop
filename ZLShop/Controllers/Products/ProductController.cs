@@ -29,7 +29,6 @@ public class ProductController : ControllerBase
     public async Task<IActionResult> CreateAsync([FromBody] CreateProductDto request)
     {
         var product = await _productService.CreateAsync(request);
-        // Do ASP.NET Core >= 3.0 mặc định bỏ hậu tố "Async" trong tên action
         return CreatedAtAction("GetById", new { id = product.Id }, product);
     }
     [HttpPut("{id}")]
