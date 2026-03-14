@@ -19,6 +19,12 @@ public class CategoryController : ControllerBase
         var result = await _categoryService.GetAllAsync();
         return Ok(result);
     }
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetByIdAsync(int id)
+    {
+        var result = await _categoryService.GetByIdAsync(id);
+        return Ok(result);
+    }
     [HttpPost]
     public async Task<IActionResult> CreateAsync(CreateCategoryDto request)
     {

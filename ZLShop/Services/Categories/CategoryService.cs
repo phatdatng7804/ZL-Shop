@@ -23,13 +23,27 @@ public class CategoryService : ICategoryService
             Name = c.Name
         }).ToList();
     }
+    public async Task<CategoryResponseDto> GetByIdAsync(int id)
+    {
+        var category = await _context.Categories
+            .FirstOrDefaultAsync(c => c.Id == id);
+        if(category == null)
+        {
+            throw new NotFoundException("Danh mục không tồn tại");
+        }
+        return new CategoryResponseDto
+        {
+            Id = category.Id,
+            Name = category.Name
+        };
+    }
     public async Task<CategoryResponseDto> CreateAsync(CreateCategoryDto request)
     {
         var isExist = await _context.Categories
             .FirstOrDefaultAsync(c => c.Name == request.Name);
         if(isExist != null)
         {
-            throw new BadRequestException("Tên danh mục đã tồn tại");
+            throw new ConflictException("Tên danh mục đã tồn tại");
         }
         var category = new Category
         {
@@ -51,7 +65,7 @@ public class CategoryService : ICategoryService
             .FirstOrDefaultAsync(c => c.Id == id);
         if(category == null)
         {
-            throw new BadRequestException("Danh mục không tồn tại");
+            throw new NotFoundException("Danh mục không tồn tại");
         }
         category.Name = request.Name;
         await _context.SaveChangesAsync();
@@ -66,7 +80,7 @@ public class CategoryService : ICategoryService
         var category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
         if(category == null)
         {
-            throw new BadRequestException("Danh mục không tồn tại");
+            throw new NotFoundException("Danh mục không tồn tại");
         }
         category.IsDeleted = true;
         category.DeletedAt = DateTime.UtcNow;
@@ -98,7 +112,7 @@ public class CategoryService : ICategoryService
 
         if (category == null)
         {
-            throw new BadRequestException("Danh mục không tồn tại trong thùng rác");
+            throw new NotFoundException("Danh mục không tồn tại trong thùng rác");
         }
 
         // Khôi phục: đặt IsDeleted = false và xóa thời gian xóa

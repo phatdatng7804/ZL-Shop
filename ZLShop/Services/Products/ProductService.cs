@@ -20,7 +20,7 @@ public class ProductService : IProductService
             .ToListAsync();
         if(products.Count == 0)
         {
-            throw new BadRequestException("Không có sản phẩm nào trong kho!");
+            throw new NotFoundException("Không có sản phẩm nào trong kho!");
         }
         return products.Select(p => new ProductResponseDto
         {
@@ -35,7 +35,7 @@ public class ProductService : IProductService
             .FirstOrDefaultAsync(x => x.Id == id);
         if(product == null)
         {
-            throw new BadRequestException("Không tìm thấy sản phẩm!");
+            throw new NotFoundException("Không tìm thấy sản phẩm!");
         }
         return new ProductResponseDto
         {
@@ -50,7 +50,7 @@ public class ProductService : IProductService
             .FirstOrDefaultAsync(x => x.Name == request.Name);
         if(isExist != null)
         {
-            throw new BadRequestException("Sản Phẩm đã toàn tại!");
+            throw new ConflictException("Sản Phẩm đã toàn tại!");
         }
         var product = new Product
         {
@@ -72,21 +72,21 @@ public class ProductService : IProductService
     public async Task<ProductResponseDto> UpdateAsync(int id, UpdateProductDto request)
     {
         var product = await _context.Products
-            .FirstOrDefaultAsync(x => x.Id == id);
+            .FindAsync(id);
         if(product == null)
         {
-            throw new BadRequestException("Không tìm thấy sản phẩm!");
+            throw new NotFoundException("Không tìm thấy sản phẩm!");
         }
         product.Name = request.Name;
         product.Description = request.Description;
         product.Price = request.Price;
-        _context.Products.Update(product);
+        product.UpdatedAt = DateTime.UtcNow;
         await _context.SaveChangesAsync();
         return new ProductResponseDto
         {
             Id = product.Id,
             Name = product.Name,
-            CreatedAt = product.CreatedAt
+            UpdateAt = product.UpdatedAt
         };
     }
     public async Task<bool> DeleteAsync(int id)
@@ -94,7 +94,7 @@ public class ProductService : IProductService
         var product = await _context.Products.FirstOrDefaultAsync(x => x.Id == id && !x.IsDeleted);
         if(product == null)
         {
-            throw new BadRequestException("Không tìm thấy sản phẩm này");
+            throw new NotFoundException("Không tìm thấy sản phẩm này");
         }
         product.IsDeleted = true;
         product.DeletedAt = DateTime.UtcNow;
@@ -124,7 +124,7 @@ public class ProductService : IProductService
             .FirstOrDefaultAsync(p => p.Id == id && p.IsDeleted);
         if(product == null)
         {
-            throw new BadRequestException("Không tìm thấy sản phẩm này trong thùng rác");
+            throw new NotFoundException("Không tìm thấy sản phẩm này trong thùng rác");
         }
         product.IsDeleted = false;
         product.DeletedAt = null;
