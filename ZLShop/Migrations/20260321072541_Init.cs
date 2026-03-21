@@ -126,7 +126,6 @@ namespace ZLShop.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Description = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Price = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     ImageUrl = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
@@ -225,6 +224,8 @@ namespace ZLShop.Migrations
                     SizeId = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     Stock = table.Column<int>(type: "int", nullable: false),
+                    SKU = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     IsDeleted = table.Column<bool>(type: "tinyint(1)", nullable: false),
@@ -320,7 +321,10 @@ namespace ZLShop.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     CartId = table.Column<int>(type: "int", nullable: false),
+                    ProductVariantId = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    TotalPrice = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     IsDeleted = table.Column<bool>(type: "tinyint(1)", nullable: false),
@@ -335,6 +339,12 @@ namespace ZLShop.Migrations
                         principalTable: "Carts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CartItems_ProductVariants_ProductVariantId",
+                        column: x => x.ProductVariantId,
+                        principalTable: "ProductVariants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -343,15 +353,20 @@ namespace ZLShop.Migrations
                 columns: new[] { "Id", "CreatedAt", "DeletedAt", "IsDeleted", "Name", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2026, 3, 6, 8, 16, 4, 629, DateTimeKind.Utc).AddTicks(3925), null, false, "admin", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 2, new DateTime(2026, 3, 6, 8, 16, 4, 629, DateTimeKind.Utc).AddTicks(3929), null, false, "staff", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 3, new DateTime(2026, 3, 6, 8, 16, 4, 629, DateTimeKind.Utc).AddTicks(3929), null, false, "user", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                    { 1, new DateTime(2026, 3, 21, 7, 25, 40, 850, DateTimeKind.Utc).AddTicks(6827), null, false, "admin", new DateTime(2026, 3, 21, 7, 25, 40, 850, DateTimeKind.Utc).AddTicks(6829) },
+                    { 2, new DateTime(2026, 3, 21, 7, 25, 40, 850, DateTimeKind.Utc).AddTicks(6831), null, false, "staff", new DateTime(2026, 3, 21, 7, 25, 40, 850, DateTimeKind.Utc).AddTicks(6832) },
+                    { 3, new DateTime(2026, 3, 21, 7, 25, 40, 850, DateTimeKind.Utc).AddTicks(6832), null, false, "user", new DateTime(2026, 3, 21, 7, 25, 40, 850, DateTimeKind.Utc).AddTicks(6833) }
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_CartItems_CartId",
                 table: "CartItems",
                 column: "CartId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CartItems_ProductVariantId",
+                table: "CartItems",
+                column: "ProductVariantId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Carts_UserId",
@@ -407,9 +422,6 @@ namespace ZLShop.Migrations
                 name: "CartItems");
 
             migrationBuilder.DropTable(
-                name: "ProductVariants");
-
-            migrationBuilder.DropTable(
                 name: "RolePermissions");
 
             migrationBuilder.DropTable(
@@ -417,6 +429,15 @@ namespace ZLShop.Migrations
 
             migrationBuilder.DropTable(
                 name: "Carts");
+
+            migrationBuilder.DropTable(
+                name: "ProductVariants");
+
+            migrationBuilder.DropTable(
+                name: "Permissions");
+
+            migrationBuilder.DropTable(
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Colors");
@@ -428,16 +449,10 @@ namespace ZLShop.Migrations
                 name: "Sizes");
 
             migrationBuilder.DropTable(
-                name: "Permissions");
-
-            migrationBuilder.DropTable(
-                name: "Users");
+                name: "Roles");
 
             migrationBuilder.DropTable(
                 name: "Categories");
-
-            migrationBuilder.DropTable(
-                name: "Roles");
         }
     }
 }

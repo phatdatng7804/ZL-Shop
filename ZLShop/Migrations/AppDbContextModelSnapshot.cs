@@ -76,12 +76,23 @@ namespace ZLShop.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(65,30)");
 
+                    b.Property<int>("ProductVariantId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(65,30)");
+
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CartId");
+
+                    b.HasIndex("ProductVariantId");
 
                     b.ToTable("CartItems");
                 });
@@ -213,9 +224,6 @@ namespace ZLShop.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(65,30)");
-
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
@@ -255,6 +263,10 @@ namespace ZLShop.Migrations
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
+
+                    b.Property<string>("SKU")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<int>("SizeId")
                         .HasColumnType("int");
@@ -308,26 +320,26 @@ namespace ZLShop.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2026, 3, 6, 8, 16, 4, 629, DateTimeKind.Utc).AddTicks(3925),
+                            CreatedAt = new DateTime(2026, 3, 21, 7, 25, 40, 850, DateTimeKind.Utc).AddTicks(6827),
                             IsDeleted = false,
                             Name = "admin",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            UpdatedAt = new DateTime(2026, 3, 21, 7, 25, 40, 850, DateTimeKind.Utc).AddTicks(6829)
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2026, 3, 6, 8, 16, 4, 629, DateTimeKind.Utc).AddTicks(3929),
+                            CreatedAt = new DateTime(2026, 3, 21, 7, 25, 40, 850, DateTimeKind.Utc).AddTicks(6831),
                             IsDeleted = false,
                             Name = "staff",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            UpdatedAt = new DateTime(2026, 3, 21, 7, 25, 40, 850, DateTimeKind.Utc).AddTicks(6832)
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2026, 3, 6, 8, 16, 4, 629, DateTimeKind.Utc).AddTicks(3929),
+                            CreatedAt = new DateTime(2026, 3, 21, 7, 25, 40, 850, DateTimeKind.Utc).AddTicks(6832),
                             IsDeleted = false,
                             Name = "user",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            UpdatedAt = new DateTime(2026, 3, 21, 7, 25, 40, 850, DateTimeKind.Utc).AddTicks(6833)
                         });
                 });
 
@@ -519,7 +531,15 @@ namespace ZLShop.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ZLShop.Models.Entities.ProductVariant", "ProductVariant")
+                        .WithMany()
+                        .HasForeignKey("ProductVariantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Cart");
+
+                    b.Navigation("ProductVariant");
                 });
 
             modelBuilder.Entity("ZLShop.Models.Entities.Product", b =>

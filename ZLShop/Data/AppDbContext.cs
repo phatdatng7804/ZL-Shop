@@ -1,7 +1,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using ZLShop.Models.Entities;
-using ZLShop.Models.SetData;
+using ZLShop.Models.Seeders;
 namespace ZLShop.Data;
 public class AppDbContext : DbContext
 {
@@ -27,5 +27,8 @@ public class AppDbContext : DbContext
         RoleData.Seed(modelBuilder);
         modelBuilder.Entity<Category>().HasQueryFilter(c => !c.IsDeleted);
         modelBuilder.Entity<Product>().HasQueryFilter(p => !p.IsDeleted);
+        modelBuilder.Entity<ProductVariant>().HasQueryFilter(pv => !pv.IsDeleted);
+        modelBuilder.Entity<Color>().HasQueryFilter(c => !c.IsDeleted);
+        modelBuilder.Entity<Size>().HasQueryFilter(s => !s.IsDeleted);
     }
 }

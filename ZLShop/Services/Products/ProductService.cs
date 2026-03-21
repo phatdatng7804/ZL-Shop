@@ -55,7 +55,6 @@ public class ProductService : IProductService
         {
             Name = request.Name,
             Description = request.Description,
-            Price = request.Price,
             ImageUrl = request.ImageUrl,
             CategoryId = request.CategoryId
         };
@@ -78,7 +77,6 @@ public class ProductService : IProductService
         }
         product.Name = request.Name;
         product.Description = request.Description;
-        product.Price = request.Price;
         product.UpdatedAt = DateTime.UtcNow;
         await _context.SaveChangesAsync();
         return new ProductResponseDto

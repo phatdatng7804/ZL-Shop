@@ -56,7 +56,7 @@ public class CategoryService : ICategoryService
         {
             Id = category.Id,
             Name = category.Name,
-
+            CreatedAt = category.CreatedAt,
         };
     }
     public async Task<CategoryResponseDto> UpdateAsync(int id, UpdateCategoryDto request)
@@ -72,7 +72,8 @@ public class CategoryService : ICategoryService
         return new CategoryResponseDto
         {
             Id = category.Id,
-            Name = category.Name
+            Name = category.Name,
+            UpdatedAt = category.UpdatedAt
         };
     }
     public async Task<bool> DeleteAsync(int id)

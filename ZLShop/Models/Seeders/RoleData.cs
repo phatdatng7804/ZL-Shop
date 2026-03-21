@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ZLShop.Models.Entities;
-namespace ZLShop.Models.SetData;
+namespace ZLShop.Models.Seeders;
 
 public class RoleData
 {
