@@ -12,7 +12,7 @@ using ZLShop.Data;
 namespace ZLShop.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260321072541_Init")]
+    [Migration("20260321072833_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -323,26 +323,26 @@ namespace ZLShop.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2026, 3, 21, 7, 25, 40, 850, DateTimeKind.Utc).AddTicks(6827),
+                            CreatedAt = new DateTime(2026, 3, 21, 7, 28, 33, 421, DateTimeKind.Utc).AddTicks(4163),
                             IsDeleted = false,
                             Name = "admin",
-                            UpdatedAt = new DateTime(2026, 3, 21, 7, 25, 40, 850, DateTimeKind.Utc).AddTicks(6829)
+                            UpdatedAt = new DateTime(2026, 3, 21, 7, 28, 33, 421, DateTimeKind.Utc).AddTicks(4169)
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2026, 3, 21, 7, 25, 40, 850, DateTimeKind.Utc).AddTicks(6831),
+                            CreatedAt = new DateTime(2026, 3, 21, 7, 28, 33, 421, DateTimeKind.Utc).AddTicks(4170),
                             IsDeleted = false,
                             Name = "staff",
-                            UpdatedAt = new DateTime(2026, 3, 21, 7, 25, 40, 850, DateTimeKind.Utc).AddTicks(6832)
+                            UpdatedAt = new DateTime(2026, 3, 21, 7, 28, 33, 421, DateTimeKind.Utc).AddTicks(4170)
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2026, 3, 21, 7, 25, 40, 850, DateTimeKind.Utc).AddTicks(6832),
+                            CreatedAt = new DateTime(2026, 3, 21, 7, 28, 33, 421, DateTimeKind.Utc).AddTicks(4171),
                             IsDeleted = false,
                             Name = "user",
-                            UpdatedAt = new DateTime(2026, 3, 21, 7, 25, 40, 850, DateTimeKind.Utc).AddTicks(6833)
+                            UpdatedAt = new DateTime(2026, 3, 21, 7, 28, 33, 421, DateTimeKind.Utc).AddTicks(4172)
                         });
                 });
 

@@ -353,9 +353,9 @@ namespace ZLShop.Migrations
                 columns: new[] { "Id", "CreatedAt", "DeletedAt", "IsDeleted", "Name", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2026, 3, 21, 7, 25, 40, 850, DateTimeKind.Utc).AddTicks(6827), null, false, "admin", new DateTime(2026, 3, 21, 7, 25, 40, 850, DateTimeKind.Utc).AddTicks(6829) },
-                    { 2, new DateTime(2026, 3, 21, 7, 25, 40, 850, DateTimeKind.Utc).AddTicks(6831), null, false, "staff", new DateTime(2026, 3, 21, 7, 25, 40, 850, DateTimeKind.Utc).AddTicks(6832) },
-                    { 3, new DateTime(2026, 3, 21, 7, 25, 40, 850, DateTimeKind.Utc).AddTicks(6832), null, false, "user", new DateTime(2026, 3, 21, 7, 25, 40, 850, DateTimeKind.Utc).AddTicks(6833) }
+                    { 1, new DateTime(2026, 3, 21, 7, 28, 33, 421, DateTimeKind.Utc).AddTicks(4163), null, false, "admin", new DateTime(2026, 3, 21, 7, 28, 33, 421, DateTimeKind.Utc).AddTicks(4169) },
+                    { 2, new DateTime(2026, 3, 21, 7, 28, 33, 421, DateTimeKind.Utc).AddTicks(4170), null, false, "staff", new DateTime(2026, 3, 21, 7, 28, 33, 421, DateTimeKind.Utc).AddTicks(4170) },
+                    { 3, new DateTime(2026, 3, 21, 7, 28, 33, 421, DateTimeKind.Utc).AddTicks(4171), null, false, "user", new DateTime(2026, 3, 21, 7, 28, 33, 421, DateTimeKind.Utc).AddTicks(4172) }
                 });
 
             migrationBuilder.CreateIndex(
