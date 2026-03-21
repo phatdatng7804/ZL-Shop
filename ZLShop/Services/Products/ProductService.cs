@@ -2,9 +2,8 @@ using ZLShop.DTOs.Products;
 using ZLShop.Models.Entities;
 using ZLShop.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using ZLShop.Data;
 using ZLShop.Exceptions;
-
+using ZLShop.Data;
 namespace ZLShop.Services.Products;
 
 public class ProductService : IProductService
