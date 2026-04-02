@@ -1,7 +1,9 @@
 using System.ComponentModel.DataAnnotations;
-
+namespace ZLShop.DTOs.CartItems;
 public class CreateCartItemDto
 {
+    [Range(1,int.MaxValue, ErrorMessage = "ProductVariantId không hợp lệ")]
+    public int ProductId {get;set;}
     [Range(1, int.MaxValue, ErrorMessage = "ProductVariantId không hợp lệ")]
     public int ProductVariantId { get; set; }
 

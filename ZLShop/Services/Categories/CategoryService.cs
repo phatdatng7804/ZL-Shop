@@ -50,7 +50,7 @@ public class CategoryService : ICategoryService
             Name = request.Name,
             CreatedAt = DateTime.UtcNow
         };
-        _context.Categories.Add(category);
+        await _context.Categories.AddAsync(category);
         await _context.SaveChangesAsync();
         return new CategoryResponseDto
         {
