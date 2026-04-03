@@ -6,13 +6,8 @@ namespace ZLShop.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class SizeController : ControllerBase
+public class SizeController(ISizeService _sizeService) : ControllerBase
 {
-    private readonly ISizeService _sizeService;
-    public SizeController(ISizeService sizeService)
-    {
-        _sizeService = sizeService;
-    }
     [HttpGet]
     public async Task<IActionResult> GetAllAsync()
     {

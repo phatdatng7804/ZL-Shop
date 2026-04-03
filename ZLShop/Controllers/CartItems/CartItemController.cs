@@ -2,74 +2,36 @@ using Microsoft.AspNetCore.Mvc;
 using ZLShop.Services.Interfaces;
 using ZLShop.DTOs.CartItems;
 using ZLShop.Exceptions;
-
+using Microsoft.AspNetCore.Authorization;
 namespace ZLShop.Controllers.CartItems;
 
 [Route("api/[controller]")]
 [ApiController]
-public class CartItemController : ControllerBase
+public class CartItemController(ICartItemService _cartItemService) : ControllerBase
 {
-    private readonly ICartItemService _cartItemService;
-    public CartItemController(ICartItemService cartItemService)
+    [Authorize]
+    [HttpGet]
+    public async Task<ActionResult<List<CartItemResponseDto>>> GetAllCartAsync()
     {
-        _cartItemService = cartItemService;
+        var cartItems = await _cartItemService.GetAllCartAsync();
+        return Ok(cartItems);
     }
     [HttpPost]
-    public async Task<ActionResult<CartItemResponseDto>> CreateAsync(CreateCartItemDto request)
+    public async Task<ActionResult<CartItemResponseDto>> AddCartAsync(CreateCartItemDto request)
     {
-            var cartItem = await _cartItemService.AddCartAsync(request);
-            return Ok(cartItem);
+        var cartItem = await _cartItemService.AddCartAsync(request);
+        return Ok(cartItem);
     }
-    // [HttpPut]
-    // public async Task<ActionResult<CartItemResponseDto>> UpdateAsync(int id, UpdateCartItemDto request)
-    // {
-    //     try
-    //     {
-    //         var cartItem = await _cartItemService.UpdateAsync(id, request);
-    //         return Ok(cartItem);
-    //     }
-    //     catch (Exception ex)
-    //     {
-    //         return BadRequest(ex.Message);
-    //     }
-    // }
-    // [HttpDelete]
-    // public async Task<ActionResult<bool>> DeleteAsync(int id)
-    // {
-    //     try
-    //     {
-    //         var result = await _cartItemService.DeleteAsync(id);
-    //         return Ok(result);
-    //     }
-    //     catch (Exception ex)
-    //     {
-    //         return BadRequest(ex.Message);
-    //     }
-    // }
-    // [HttpGet]
-    // public async Task<ActionResult<List<CartItemResponseDto>>> GetAllAsync()
-    // {
-    //     try
-    //     {
-    //         var cartItems = await _cartItemService.GetAllAsync();
-    //         return Ok(cartItems);
-    //     }
-    //     catch (Exception ex)
-    //     {
-    //         return BadRequest(ex.Message);
-    //     }
-    // }
-    // [HttpGet("{id}")]
-    // public async Task<ActionResult<CartItemResponseDto>> GetByIdAsync(int id)
-    // {
-    //     try
-    //     {
-    //         var cartItem = await _cartItemService.GetByIdAsync(id);
-    //         return Ok(cartItem);
-    //     }
-    //     catch (Exception ex)
-    //     {
-    //         return BadRequest(ex.Message);
-    //     }
-    // }
+    [HttpPut("{id}")]
+    public async Task<ActionResult<CartItemResponseDto>> UpdateCartAsync(int id, UpdateCartItemDto request)
+    {
+        var cartItem = await _cartItemService.UpdateCartAsync(id, request);
+        return Ok(cartItem);
+    }
+    [HttpDelete("{id}")]
+    public async Task<ActionResult<CartItemResponseDto>> DeleteCartAsync(int id)
+    {
+        var cartItem = await _cartItemService.DeleteCartAsync(id);
+        return Ok(cartItem);
+    }
 }

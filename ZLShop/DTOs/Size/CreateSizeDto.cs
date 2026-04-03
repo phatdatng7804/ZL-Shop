@@ -5,6 +5,6 @@ namespace ZLShop.DTOs.Size;
 
 public class CreateSizeDto{
     [Required(ErrorMessage = "Tên size là bắt buộc")]
-    public string Name {get; set;}
+    public string? Name {get; set;}
 }
 

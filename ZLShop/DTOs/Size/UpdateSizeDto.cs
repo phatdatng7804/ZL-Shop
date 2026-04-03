@@ -4,5 +4,5 @@ namespace ZLShop.DTOs.Size;
 
 public class UpdateSizeDto{
     [Required(ErrorMessage = "Tên size là bắt buộc")]
-    public string Name {get; set;}
+    public string? Name {get; set;}
 }

@@ -6,13 +6,8 @@ namespace ZLShop.Controllers.ProductVariant;
 
 [ApiController]
 [Route("api/[controller]")]
-public class ProductVariantController : ControllerBase
+public class ProductVariantController(IProductVariantService _productVariantService) : ControllerBase
 {
-    private readonly IProductVariantService _productVariantService;
-    public ProductVariantController(IProductVariantService productVariantService)
-    {
-        _productVariantService = productVariantService;
-    }
     [HttpGet]
     public async Task<IActionResult> GetAllAsync()
     {

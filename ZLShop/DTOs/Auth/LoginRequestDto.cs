@@ -5,7 +5,7 @@ namespace ZLShop.DTOs.Auth;
 public class LoginRequestDto
 {
     [Required(ErrorMessage = "Username là bắt buộc")]
-    public string Username { get; set; }
+    public string? Username { get; set; }
     [Required(ErrorMessage = "Password là bắt buộc")]
-    public string Password { get; set; }
+    public string? Password { get; set; }
 }

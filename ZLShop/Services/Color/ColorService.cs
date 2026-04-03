@@ -43,8 +43,8 @@ public class ColorService : IColorService
     }
     public async Task<ColorResponseDto> CreateColorAsync(CreateColorDto request)
     {
-        var normalName =request.Name.Trim();
-        var normalHex = request.HexCode.Trim().ToUpper();
+        var normalName = request.Name?.Trim() ?? string.Empty;
+        var normalHex = request.HexCode?.Trim().ToUpper() ?? string.Empty;
         var isExist = await _context.Set<ColorEntity>().AnyAsync(c => c.Name == normalName || c.HexCode == normalHex);
         if(isExist)
         {
@@ -74,8 +74,8 @@ public class ColorService : IColorService
         {
             throw new NotFoundException("Không tìm thấy màu!");
         }
-        color.Name = request.Name.Trim();
-        color.HexCode = request.HexCode.Trim().ToUpper();
+        color.Name = request.Name?.Trim() ?? string.Empty;
+        color.HexCode = request.HexCode?.Trim().ToUpper() ?? string.Empty;
         color.UpdatedAt = DateTime.UtcNow;
         await _context.SaveChangesAsync();
         return new ColorResponseDto

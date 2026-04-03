@@ -7,13 +7,8 @@ namespace ZLShop.Controllers.Color;
 
 [ApiController]
 [Route("api/[controller]")]
-public class ColorController : ControllerBase
+public class ColorController(IColorService _colorService) : ControllerBase
 {
-    private readonly IColorService _colorService;
-    public ColorController(IColorService colorService)
-    {
-        _colorService = colorService;
-    }
     [HttpGet]
     public async Task<IActionResult> GetAllAsync()
     {

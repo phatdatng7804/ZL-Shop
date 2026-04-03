@@ -4,9 +4,8 @@ namespace ZLShop.Services.Interfaces;
 
 public interface ICartItemService
 {
-    // Task<List<CartItemResponseDto>> GetAllAsync();
-    // Task<CartItemResponseDto> GetByIdAsync(int id);
+    Task<List<CartItemResponseDto>> GetAllCartAsync();
     Task<CartItemResponseDto> AddCartAsync(CreateCartItemDto request);
-    // Task<CartItemResponseDto> UpdateAsync(int id, UpdateCartItemDto request);
-    // Task<bool> DeleteAsync(int id);
+    Task<CartItemResponseDto> UpdateCartAsync(int id, UpdateCartItemDto request);
+    Task<CartItemResponseDto> DeleteCartAsync(int id);
 }
