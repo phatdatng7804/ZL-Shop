@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Authorization;
+using ZLShop.Auth;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -52,6 +54,13 @@ builder.Services.Scan(scan => scan
         .AddClasses(classes => classes.Where(type => type.Name.EndsWith("Service")))
         .AsImplementedInterfaces()
         .WithScopedLifetime());
+
+// RBAC Authorization
+builder.Services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
+builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionAuthorizationPolicyProvider>();
+
+// AutoMapper
+builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddControllers();
 builder.Services.AddAuthorization();
