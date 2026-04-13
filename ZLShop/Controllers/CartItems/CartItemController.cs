@@ -9,6 +9,7 @@ namespace ZLShop.Controllers.CartItems;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class CartItemController(ICartItemService _cartItemService) : ControllerBase
 {
     [HasPermission("cart.view")]

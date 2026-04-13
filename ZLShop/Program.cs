@@ -17,9 +17,21 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))
     )
 );
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend",policy => 
+    {
+        policy.WithOrigins("http://localhost:5173")
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials();
+    });
+});
+
 // Config JWT
 var jwtSettings = builder.Configuration.GetSection("Jwt");
-var keys = jwtSettings["Key"];
+var key = jwtSettings["Key"] 
+    ?? throw new Exception("JWT Key is missing in configuration");
 
 builder.Services.AddAuthentication(options =>
 {
@@ -44,7 +56,7 @@ builder.Services.AddAuthentication(options =>
         ValidAudience = jwtSettings["Audience"],
 
         IssuerSigningKey = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(keys)
+            Encoding.UTF8.GetBytes(key)
         )
     };
 });
@@ -60,7 +72,7 @@ builder.Services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHand
 builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionAuthorizationPolicyProvider>();
 
 // AutoMapper
-builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddControllers();
 builder.Services.AddAuthorization();
@@ -103,6 +115,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("AllowFrontend");
 app.UseHttpsRedirection();
 
 app.UseAuthentication(); 
