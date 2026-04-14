@@ -1,8 +1,6 @@
 using ZLShop.Services.Interfaces;
 using ZLShop.Data;
-using ZLShop.Models.Entities;
 using ZLShop.DTOs.Cart;
-using ZLShop.DTOs.CartItems;
 using ZLShop.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
